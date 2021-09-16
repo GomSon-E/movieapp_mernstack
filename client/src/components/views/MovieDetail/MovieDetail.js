@@ -3,7 +3,8 @@ import { API_URL, API_KEY, IMAGE_BASE_URL } from "../../Config";
 import MainImage from "../LandingPage/Sections/MainImage";
 import MovieInfo from "./Sections/MovieInfo";
 import GridCard from "../commons/GridCard";
-import { Row } from "antd";
+import Favorite from "./Sections/Favorite";
+import { Row, Button } from "antd";
 
 function MovieDetail(props) {
   let movieId = props.match.params.movieId;
@@ -28,10 +29,9 @@ function MovieDetail(props) {
       });
   }, []);
 
-
-const toggleActorView = () => {
-  setActorToggle(!ActorToggle)
-}
+  const toggleActorView = () => {
+    setActorToggle(!ActorToggle);
+  };
 
   return (
     <div>
@@ -44,6 +44,10 @@ const toggleActorView = () => {
 
       {/* {Body} */}
       <div style={{ width: "85%", margin: "1rem auto" }}>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}>
+          <Favorite movieInfo={Movie} movieId = {movieId} userFrom={localStorage.getItem('userId')} />
+        </div>
+
         {/* {Movie Info} */}
         <MovieInfo movie={Movie} />
         <br />
@@ -51,7 +55,7 @@ const toggleActorView = () => {
         <div
           style={{ display: "flex", justifyContent: "center", margin: "2rem" }}
         >
-          <button onClick={toggleActorView}>Toggle Actor View</button>
+          <Button onClick={toggleActorView}>Toggle Actor View</Button>
         </div>
 
         {ActorToggle && (
